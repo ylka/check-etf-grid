@@ -28,3 +28,12 @@ jobs:
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: python main.py
+      
+      - name: Commit updated date file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add last_date.txt
+          # only commit if there are staged changes
+          git diff --cached --quiet || (git commit -m "Update last_date.txt" && git push)
+
