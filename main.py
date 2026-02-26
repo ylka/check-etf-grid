@@ -35,12 +35,14 @@ if desc_tag:
             if date_str != last_date:
                 # 发送邮件通知
                 sender_email = os.getenv('SENDER_EMAIL', "460646359@qq.com")
-                receiver_email = os.getenv('RECEIVER_EMAIL', "460646359@qq.com")
+                receiver_email = os.getenv(
+                    'RECEIVER_EMAIL', "460646359@qq.com")
                 password = os.getenv('EMAIL_PASSWORD')  # 从环境变量读取密码
 
                 if not password:
                     print('password error')
                 else:
+                    print(password+"skdf")
                     msg = MIMEText(f"网格更新啦！")
                     msg['Subject'] = "网格有更新！"
                     msg['From'] = sender_email
@@ -49,7 +51,8 @@ if desc_tag:
                     # 连接到 SMTP 服务器并发送邮件
                     server = smtplib.SMTP_SSL('smtp.qq.com', 465)
                     server.login(sender_email, password)
-                    server.sendmail(sender_email, receiver_email, msg.as_string())
+                    server.sendmail(
+                        sender_email, receiver_email, msg.as_string())
                     server.quit()
                     print("邮件已发送")
             else:
